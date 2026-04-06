@@ -76,9 +76,26 @@ function Countdown() {
   );
 }
 
+const ALCOHOL_OPTIONS = [
+  "Только безалкогольные напитки",
+  "Виски",
+  "Вино белое",
+  "Вино красное",
+  "Пиво",
+  "Шампанское",
+  "Коктейли",
+];
+
 function GuestForm() {
-  const [form, setForm] = useState({ name: "", attendance: "yes", menu: "", wishes: "" });
+  const [form, setForm] = useState({ name: "", attendance: "yes", alcohol: [] as string[], wishes: "" });
   const [sent, setSent] = useState(false);
+
+  const toggleAlcohol = (opt: string) => {
+    setForm(f => ({
+      ...f,
+      alcohol: f.alcohol.includes(opt) ? f.alcohol.filter(a => a !== opt) : [...f.alcohol, opt],
+    }));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -96,29 +113,32 @@ function GuestForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-lg mx-auto space-y-5">
+    <form onSubmit={handleSubmit} className="max-w-lg mx-auto space-y-6">
+      {/* Имя и фамилия */}
       <div>
-        <label className="block font-[Montserrat] text-xs uppercase tracking-widest text-[#1a3a6b]/70 mb-2">Ваше имя</label>
+        <label className="block font-[Montserrat] text-[10px] uppercase tracking-widest text-[#1a3a6b]/60 mb-2">Имя и фамилия</label>
         <input
           required
           value={form.name}
           onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
-          className="w-full border-2 border-[#1a3a6b]/20 rounded-xl px-4 py-3 font-[Montserrat] text-[#1a1a2e] bg-white/80 focus:outline-none focus:border-[#1a3a6b]/50 transition-colors"
-          placeholder="Имя и фамилия"
+          className="w-full border-2 border-[#1a3a6b]/20 rounded-2xl px-4 py-3 font-[Montserrat] text-[#1a1a2e] bg-white focus:outline-none focus:border-[#1a3a6b]/50 transition-colors"
+          placeholder="Иван Иванов"
         />
       </div>
+
+      {/* Присутствие */}
       <div>
-        <label className="block font-[Montserrat] text-xs uppercase tracking-widest text-[#1a3a6b]/70 mb-2">Присутствие</label>
+        <label className="block font-[Montserrat] text-[10px] uppercase tracking-widest text-[#1a3a6b]/60 mb-3">Присутствие</label>
         <div className="flex gap-3">
-          {[{ val: "yes", label: "✓ Буду!" }, { val: "no", label: "✗ Не смогу" }].map(opt => (
+          {[{ val: "yes", label: "Буду с радостью!" }, { val: "no", label: "Не смогу прийти" }].map(opt => (
             <button
               key={opt.val}
               type="button"
               onClick={() => setForm(f => ({ ...f, attendance: opt.val }))}
-              className={`flex-1 py-3 rounded-xl font-[Montserrat] text-sm border-2 transition-all ${
+              className={`flex-1 py-3 px-3 rounded-2xl font-[Montserrat] text-xs border-2 transition-all ${
                 form.attendance === opt.val
                   ? "bg-[#1a3a6b] text-white border-[#1a3a6b]"
-                  : "border-[#1a3a6b]/20 text-[#1a3a6b] bg-white/80 hover:border-[#1a3a6b]/50"
+                  : "border-[#1a3a6b]/20 text-[#1a3a6b] bg-white hover:border-[#1a3a6b]/40"
               }`}
             >
               {opt.label}
@@ -126,33 +146,43 @@ function GuestForm() {
           ))}
         </div>
       </div>
+
+      {/* Предпочтения по алкоголю */}
       <div>
-        <label className="block font-[Montserrat] text-xs uppercase tracking-widest text-[#1a3a6b]/70 mb-2">Предпочтения в меню</label>
-        <select
-          value={form.menu}
-          onChange={e => setForm(f => ({ ...f, menu: e.target.value }))}
-          className="w-full border-2 border-[#1a3a6b]/20 rounded-xl px-4 py-3 font-[Montserrat] text-[#1a1a2e] bg-white/80 focus:outline-none focus:border-[#1a3a6b]/50"
-        >
-          <option value="">Выберите вариант</option>
-          <option value="meat">Мясное меню</option>
-          <option value="fish">Рыбное меню</option>
-          <option value="veg">Вегетарианское</option>
-          <option value="children">Детское меню</option>
-        </select>
+        <label className="block font-[Montserrat] text-[10px] uppercase tracking-widest text-[#1a3a6b]/60 mb-3">Предпочтения по напиткам</label>
+        <div className="flex flex-wrap gap-2">
+          {ALCOHOL_OPTIONS.map(opt => (
+            <button
+              key={opt}
+              type="button"
+              onClick={() => toggleAlcohol(opt)}
+              className={`px-4 py-2 rounded-full font-[Montserrat] text-xs border-2 transition-all ${
+                form.alcohol.includes(opt)
+                  ? "bg-[#c8960a] text-white border-[#c8960a]"
+                  : "border-[#1a3a6b]/20 text-[#1a3a6b] bg-white hover:border-[#c8960a]/50"
+              }`}
+            >
+              {opt}
+            </button>
+          ))}
+        </div>
       </div>
+
+      {/* Пожелания */}
       <div>
-        <label className="block font-[Montserrat] text-xs uppercase tracking-widest text-[#1a3a6b]/70 mb-2">Пожелание молодожёнам</label>
+        <label className="block font-[Montserrat] text-[10px] uppercase tracking-widest text-[#1a3a6b]/60 mb-2">Пожелания молодожёнам</label>
         <textarea
           value={form.wishes}
           onChange={e => setForm(f => ({ ...f, wishes: e.target.value }))}
           rows={3}
-          className="w-full border-2 border-[#1a3a6b]/20 rounded-xl px-4 py-3 font-[Montserrat] text-[#1a1a2e] bg-white/80 focus:outline-none focus:border-[#1a3a6b]/50 resize-none transition-colors"
+          className="w-full border-2 border-[#1a3a6b]/20 rounded-2xl px-4 py-3 font-[Montserrat] text-[#1a1a2e] bg-white focus:outline-none focus:border-[#1a3a6b]/50 resize-none transition-colors"
           placeholder="Ваши тёплые слова..."
         />
       </div>
+
       <button
         type="submit"
-        className="w-full py-4 bg-[#1a3a6b] text-white font-[Montserrat] text-sm uppercase tracking-widest rounded-xl hover:bg-[#2d5aa0] transition-colors shadow-lg"
+        className="w-full py-4 bg-[#1a3a6b] text-white font-[Montserrat] text-xs uppercase tracking-widest rounded-2xl hover:bg-[#2d5aa0] transition-colors shadow-lg"
       >
         Отправить ответ
       </button>
@@ -172,22 +202,22 @@ export default function Index() {
         }}
       >
         {/* Фото слева */}
-        <div className="absolute left-0 bottom-0 w-36 md:w-52 lg:w-64 pointer-events-none select-none z-10">
+        <div className="absolute left-0 bottom-0 w-48 md:w-72 lg:w-96 pointer-events-none select-none z-10">
           <img
             src={PHOTO_LEFT}
             alt=""
             className="w-full h-auto object-contain object-bottom"
-            style={{ maxHeight: '70vh' }}
+            style={{ maxHeight: '85vh' }}
           />
         </div>
 
         {/* Фото справа */}
-        <div className="absolute right-0 bottom-0 w-36 md:w-52 lg:w-64 pointer-events-none select-none z-10">
+        <div className="absolute right-0 bottom-0 w-48 md:w-72 lg:w-96 pointer-events-none select-none z-10">
           <img
             src={PHOTO_RIGHT}
             alt=""
             className="w-full h-auto object-contain object-bottom"
-            style={{ maxHeight: '70vh', transform: 'scaleX(-1)' }}
+            style={{ maxHeight: '85vh' }}
           />
         </div>
 
@@ -249,6 +279,31 @@ export default function Index() {
 
         <div className="relative z-20 mt-10 flex flex-col items-center">
           <div className="w-0.5 h-10 bg-[#1a3a6b]/20 animate-pulse" />
+        </div>
+      </section>
+
+      {/* ===== ПРИВЕТСТВИЕ ===== */}
+      <section className="py-20 px-6 bg-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='20' cy='20' r='1.5' fill='%231a3a6b'/%3E%3C/svg%3E\")" }} />
+        <div className="max-w-2xl mx-auto text-center relative z-10">
+          <FadeIn>
+            <span className="text-3xl mb-6 block">🍋</span>
+            <p className="font-[Montserrat] text-[10px] uppercase tracking-[0.5em] text-[#c8960a] mb-6">— дорогие гости —</p>
+            <p className="font-[Playfair_Display] italic text-[#1a3a6b] leading-relaxed mb-4" style={{ fontSize: 'clamp(1.1rem, 3vw, 1.4rem)' }}>
+              Мы счастливы пригласить вас на важное событие —
+            </p>
+            <h2 className="font-[Playfair_Display] italic text-[#c8960a] mb-6" style={{ fontSize: 'clamp(1.5rem, 5vw, 2.2rem)' }}>
+              день нашей свадьбы!
+            </h2>
+            <div className="flex items-center justify-center gap-3 mb-7">
+              <div className="h-px w-16 bg-[#1a3a6b]/15" />
+              <span className="text-[#c8960a]">✦</span>
+              <div className="h-px w-16 bg-[#1a3a6b]/15" />
+            </div>
+            <p className="font-[Playfair_Display] italic text-[#1a3a6b]/70 leading-relaxed" style={{ fontSize: 'clamp(1rem, 2.5vw, 1.2rem)' }}>
+              Будем безумно рады, если вы присоединитесь к нам<br className="hidden md:block" /> в этот особенный день!
+            </p>
+          </FadeIn>
         </div>
       </section>
 
@@ -361,12 +416,10 @@ export default function Index() {
           <div className="relative">
             <div className="absolute left-1/2 top-0 bottom-0 w-px bg-white/10 -translate-x-1/2" />
             {[
-              { time: "15:00", title: "Сбор гостей", desc: "Welcome-коктейль", emoji: "🥂", side: "left" },
-              { time: "15:30", title: "Регистрация", desc: "ЗАГС, ул. Декабрьских событий, 106", emoji: "💍", side: "right" },
-              { time: "17:00", title: "Выезд на банкет", desc: "рп. Большая Речка, Южный пер., 7", emoji: "🚗", side: "left" },
-              { time: "18:00", title: "Банкет", desc: "Праздничный ужин, тосты и первый танец", emoji: "🎵", side: "right" },
-              { time: "20:00", title: "Торт", desc: "Разрезание свадебного торта", emoji: "🎂", side: "left" },
-              { time: "20:30", title: "Танцы", desc: "До позднего вечера", emoji: "🌙", side: "right" },
+              { time: "15:30", title: "Регистрация", desc: "Центральный отдел ЗАГСа", emoji: "💍", side: "left" },
+              { time: "16:30–17:00", title: "Выезд", desc: "Отправляемся на место торжества", emoji: "🚗", side: "right" },
+              { time: "17:30", title: "Начало банкета", desc: "рп. Большая Речка, Южный пер., 7", emoji: "🥂", side: "left" },
+              { time: "22:00", title: "Танцы", desc: "До позднего вечера!", emoji: "🌙", side: "right" },
             ].map((item, i) => (
               <FadeIn key={i} delay={i * 100}>
                 <div className={`flex items-center gap-6 mb-10 ${item.side === "right" ? "flex-row-reverse" : ""}`}>
@@ -389,10 +442,10 @@ export default function Index() {
       {/* ===== MAIOLICA DIVIDER ===== */}
       <div className="h-3 w-full" style={{ background: 'repeating-linear-gradient(90deg, #1a3a6b 0px, #1a3a6b 12px, #f5e642 12px, #f5e642 24px, #fff 24px, #fff 36px)' }} />
 
-      {/* ===== DETAILS ===== */}
+      {/* ===== ДЕТАЛИ ===== */}
       <section className="py-24 px-6 bg-white">
         <div className="max-w-3xl mx-auto">
-          <FadeIn className="text-center mb-16">
+          <FadeIn className="text-center mb-14">
             <p className="font-[Montserrat] text-xs uppercase tracking-[0.5em] text-[#c8960a] mb-3">— важно знать —</p>
             <h2 className="font-[Playfair_Display] italic text-5xl text-[#1a3a6b] mb-4">Детали</h2>
             <div className="flex items-center justify-center gap-3">
@@ -401,20 +454,61 @@ export default function Index() {
               <div className="h-px w-16 bg-[#1a3a6b]/20" />
             </div>
           </FadeIn>
-          <div className="grid md:grid-cols-2 gap-5">
+
+          <FadeIn>
+            <div className="bg-[#fffde7] border-2 border-[#1a3a6b]/10 rounded-3xl p-8 flex gap-5 items-start mb-5">
+              <div className="text-3xl flex-shrink-0 mt-1">👗</div>
+              <div>
+                <p className="font-[Montserrat] text-[10px] uppercase tracking-widest text-[#c8960a] mb-2">Дресс-код</p>
+                <p className="font-[Playfair_Display] italic text-[#1a3a6b] text-lg mb-1">Любой наряд — приветствуется!</p>
+                <p className="font-[Montserrat] text-sm text-[#1a3a6b]/70 leading-relaxed">
+                  Мы будем рады видеть вас в любом наряде, но нам будет ещё приятнее, если вы поддержите общую цветовую гамму нашего торжества.
+                </p>
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ===== MAIOLICA DIVIDER ===== */}
+      <div className="h-3 w-full" style={{ background: 'repeating-linear-gradient(90deg, #1a3a6b 0px, #1a3a6b 12px, #f5e642 12px, #f5e642 24px, #fff 24px, #fff 36px)' }} />
+
+      {/* ===== ПОЖЕЛАНИЯ ===== */}
+      <section className="py-24 px-6 bg-[#1a3a6b]">
+        <div className="max-w-3xl mx-auto">
+          <FadeIn className="text-center mb-14">
+            <p className="font-[Montserrat] text-xs uppercase tracking-[0.5em] text-[#f5e642]/70 mb-3">— просим учесть —</p>
+            <h2 className="font-[Playfair_Display] italic text-5xl text-white mb-4">Несколько пожеланий</h2>
+            <div className="flex items-center justify-center gap-3">
+              <div className="h-px w-16 bg-white/20" />
+              <span className="text-[#f5e642] text-xl">✦</span>
+              <div className="h-px w-16 bg-white/20" />
+            </div>
+          </FadeIn>
+
+          <div className="space-y-5">
             {[
-              { emoji: "👔", title: "Дресс-код", desc: "Праздничный наряд. Предпочтительная палитра: белый, синий, жёлтый. Белое — только для невесты." },
-              { emoji: "👶", title: "Дети", desc: "Мы рады видеть ваших детей! Для малышей будет оборудована специальная зона." },
-              { emoji: "📷", title: "Фото", desc: "Просим не снимать во время церемонии — фотограф запечатлеет все важные моменты." },
-              { emoji: "🎁", title: "Подарки", desc: "Лучший подарок — ваше присутствие. Если хочется сделать сюрприз — уточните у организаторов." },
+              {
+                emoji: "💌",
+                text: "Дорогие гости, так как мы хотим видеть только самых-самых близких людей, то мы будем ждать вас без дополнительного гостя — именно поэтому мы рассылаем приглашения лично.",
+              },
+              {
+                emoji: "💵",
+                text: "Чтобы сделать этот день ещё более ярким и запоминающимся, просим взять с собой разменянные наличные от 50 до 1000 рублей для участия в конкурсах.",
+              },
+              {
+                emoji: "🎉",
+                text: "Так как свадьба планируется камерная — без ведущего и диджея — если у вас появится необычная идея развлечения, обязательно напишите нам!",
+              },
+              {
+                emoji: "📅",
+                text: "Подтвердите приход и дайте нам знать до 1 мая 2026 года.",
+              },
             ].map((item, i) => (
-              <FadeIn key={item.title} delay={i * 100}>
-                <div className="bg-[#fffde7] border-2 border-[#1a3a6b]/10 rounded-3xl p-7 flex gap-5 items-start hover:border-[#1a3a6b]/30 transition-colors">
-                  <div className="text-3xl flex-shrink-0 mt-1">{item.emoji}</div>
-                  <div>
-                    <p className="font-[Montserrat] text-[10px] uppercase tracking-widest text-[#c8960a] mb-2">{item.title}</p>
-                    <p className="font-[Montserrat] text-sm text-[#1a3a6b]/70 leading-relaxed">{item.desc}</p>
-                  </div>
+              <FadeIn key={i} delay={i * 100}>
+                <div className="flex gap-5 items-start bg-white/5 border border-white/10 rounded-3xl p-7">
+                  <span className="text-2xl flex-shrink-0 mt-0.5">{item.emoji}</span>
+                  <p className="font-[Montserrat] text-sm text-white/80 leading-relaxed">{item.text}</p>
                 </div>
               </FadeIn>
             ))}
@@ -433,15 +527,47 @@ export default function Index() {
       >
         <div className="max-w-2xl mx-auto">
           <FadeIn className="text-center mb-12">
-            <p className="font-[Montserrat] text-xs uppercase tracking-[0.5em] text-[#c8960a] mb-3">— ваш ответ —</p>
-            <h2 className="font-[Playfair_Display] italic text-5xl text-[#1a3a6b] mb-4">RSVP</h2>
-            <p className="font-[Montserrat] text-sm text-[#1a3a6b]/60">Пожалуйста, подтвердите присутствие до 1 мая 2026</p>
+            <p className="font-[Montserrat] text-xs uppercase tracking-[0.5em] text-[#c8960a] mb-3">— анкета гостя —</p>
+            <h2 className="font-[Playfair_Display] italic text-5xl text-[#1a3a6b] mb-4">Ваш ответ</h2>
+            <p className="font-[Montserrat] text-sm text-[#1a3a6b]/60">Ответьте на несколько вопросов — для нас это очень важно!</p>
           </FadeIn>
           <FadeIn delay={200}>
             <div className="bg-white rounded-3xl shadow-xl p-8 md:p-12 border border-[#1a3a6b]/10">
               <GuestForm />
             </div>
           </FadeIn>
+        </div>
+      </section>
+
+      {/* ===== MAIOLICA DIVIDER ===== */}
+      <div className="h-3 w-full" style={{ background: 'repeating-linear-gradient(90deg, #1a3a6b 0px, #1a3a6b 12px, #f5e642 12px, #f5e642 24px, #fff 24px, #fff 36px)' }} />
+
+      {/* ===== КОНТАКТЫ ===== */}
+      <section className="py-20 px-6 bg-white">
+        <div className="max-w-xl mx-auto">
+          <FadeIn className="text-center mb-12">
+            <p className="font-[Montserrat] text-xs uppercase tracking-[0.5em] text-[#c8960a] mb-3">— мы здесь —</p>
+            <h2 className="font-[Playfair_Display] italic text-5xl text-[#1a3a6b] mb-4">Контакты</h2>
+            <div className="flex items-center justify-center gap-3">
+              <div className="h-px w-16 bg-[#1a3a6b]/20" />
+              <span className="text-[#c8960a] text-xl">✦</span>
+              <div className="h-px w-16 bg-[#1a3a6b]/20" />
+            </div>
+          </FadeIn>
+          <div className="grid md:grid-cols-2 gap-5">
+            <FadeIn>
+              <a href="tel:+79041381591" className="group block bg-[#fffde7] border-2 border-[#1a3a6b]/10 rounded-3xl p-8 text-center hover:border-[#1a3a6b]/40 transition-all">
+                <p className="font-[Playfair_Display] italic text-2xl text-[#1a3a6b] mb-1">Эдуард</p>
+                <p className="font-[Montserrat] text-[#c8960a] text-sm font-semibold tracking-wide group-hover:text-[#1a3a6b] transition-colors">+7 (904) 138-15-91</p>
+              </a>
+            </FadeIn>
+            <FadeIn delay={100}>
+              <a href="tel:+79041141320" className="group block bg-[#fffde7] border-2 border-[#1a3a6b]/10 rounded-3xl p-8 text-center hover:border-[#1a3a6b]/40 transition-all">
+                <p className="font-[Playfair_Display] italic text-2xl text-[#1a3a6b] mb-1">Полина</p>
+                <p className="font-[Montserrat] text-[#c8960a] text-sm font-semibold tracking-wide group-hover:text-[#1a3a6b] transition-colors">+7 (904) 114-13-20</p>
+              </a>
+            </FadeIn>
+          </div>
         </div>
       </section>
 
