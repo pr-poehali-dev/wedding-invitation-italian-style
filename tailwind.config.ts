@@ -22,6 +22,7 @@ export default {
 			fontFamily: {
 				cormorant: ['Cormorant Garamond', 'serif'],
 				montserrat: ['Montserrat', 'sans-serif'],
+				playfair: ['Playfair Display', 'serif'],
 			},
 			colors: {
 				lemon: {
