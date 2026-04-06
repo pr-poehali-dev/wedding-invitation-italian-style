@@ -1,13 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import Icon from "@/components/ui/icon";
 
-const PHOTO_LEFT = "https://cdn.poehali.dev/projects/da9c55e1-2bcf-416a-90f7-995b1931dbfb/bucket/392a8f03-2221-4324-96af-3746df3e5a78.png";
-const PHOTO_RIGHT = "https://cdn.poehali.dev/projects/da9c55e1-2bcf-416a-90f7-995b1931dbfb/bucket/b39bae2a-57f4-4aba-bd6b-c418fd75b86a.png";
 const LEMON_BRANCH = "https://cdn.poehali.dev/projects/da9c55e1-2bcf-416a-90f7-995b1931dbfb/bucket/be714152-862a-4017-a24e-425890a3c8a3.png";
 const LEMON_SLICE = "https://cdn.poehali.dev/projects/da9c55e1-2bcf-416a-90f7-995b1931dbfb/bucket/62f93f2b-16f4-48a3-96ff-a65d0f74b1a0.png";
 const BG_TILE = "https://cdn.poehali.dev/projects/da9c55e1-2bcf-416a-90f7-995b1931dbfb/bucket/0274bd99-ef64-4d91-8eff-26345949f76b.png";
-const DRESSCODE_1 = "https://cdn.poehali.dev/projects/da9c55e1-2bcf-416a-90f7-995b1931dbfb/bucket/1a95a109-8b95-4b15-a228-da758d067f9c.png";
-const DRESSCODE_2 = "https://cdn.poehali.dev/projects/da9c55e1-2bcf-416a-90f7-995b1931dbfb/bucket/86e06fde-0f27-4798-9818-8d7cd6292709.png";
+const DRESSCODE_1 = "https://cdn.poehali.dev/projects/da9c55e1-2bcf-416a-90f7-995b1931dbfb/bucket/1ee91e44-bbbe-4e0d-a2c1-1cef72294ff2.jpg";
+const DRESSCODE_2 = "https://cdn.poehali.dev/projects/da9c55e1-2bcf-416a-90f7-995b1931dbfb/bucket/5e94642e-838c-401c-97fe-108e77be25e0.jpg";
 
 const BLUE = "#4a7ab5";
 const BLUE_LIGHT = "#e8f0fb";
@@ -236,26 +234,8 @@ export default function Index() {
         {/* Полупрозрачный оверлей для читаемости */}
         <div className="absolute inset-0 bg-white/55" />
 
-        {/* Фото слева — полная высота */}
-        <div className="absolute left-0 bottom-0 h-full pointer-events-none select-none z-10" style={{ width: "clamp(140px, 28vw, 380px)" }}>
-          <img
-            src={PHOTO_LEFT}
-            alt=""
-            className="h-full w-full object-contain object-bottom"
-          />
-        </div>
-
-        {/* Фото справа — полная высота */}
-        <div className="absolute right-0 bottom-0 h-full pointer-events-none select-none z-10" style={{ width: "clamp(140px, 28vw, 380px)" }}>
-          <img
-            src={PHOTO_RIGHT}
-            alt=""
-            className="h-full w-full object-contain object-bottom"
-          />
-        </div>
-
         {/* Карточка по центру */}
-        <div className="relative z-20 w-full flex flex-col items-center px-4" style={{ maxWidth: "min(360px, 44vw)" }}>
+        <div className="relative z-20 w-full flex flex-col items-center px-4" style={{ maxWidth: "400px" }}>
 
           {/* Лимончики над карточкой */}
           <div className="relative z-30 -mb-8 w-40 md:w-52 pointer-events-none select-none">
@@ -324,14 +304,14 @@ export default function Index() {
           <FadeIn>
             <img src={LEMON_SLICE} alt="" className="w-16 h-auto mx-auto mb-6 opacity-70" />
             <p className="font-[Montserrat] text-[10px] uppercase tracking-[0.5em] mb-6" style={{ color: GOLD }}>— дорогие гости —</p>
-            <p className="font-[Playfair_Display] italic leading-relaxed mb-4" style={{ fontSize: "clamp(1.1rem, 3vw, 1.4rem)", color: BLUE }}>
+            <p className="font-[Playfair_Display] italic leading-relaxed mb-2" style={{ fontSize: "clamp(1.2rem, 3vw, 1.5rem)", color: BLUE }}>
               Мы счастливы пригласить вас на важное событие —
             </p>
-            <h2 className="font-[Playfair_Display] italic mb-6" style={{ fontSize: "clamp(1.5rem, 5vw, 2.2rem)", color: GOLD }}>
+            <p className="font-[Playfair_Display] italic leading-relaxed mb-6" style={{ fontSize: "clamp(1.2rem, 3vw, 1.5rem)", color: GOLD }}>
               день нашей свадьбы!
-            </h2>
+            </p>
             <Divider />
-            <p className="font-[Playfair_Display] italic leading-relaxed mt-6" style={{ fontSize: "clamp(1rem, 2.5vw, 1.2rem)", color: `${BLUE}99` }}>
+            <p className="font-[Playfair_Display] italic leading-relaxed mt-6" style={{ fontSize: "clamp(1.2rem, 3vw, 1.5rem)", color: `${BLUE}99` }}>
               Будем безумно рады, если вы присоединитесь к нам в этот особенный день!
             </p>
           </FadeIn>
@@ -461,9 +441,9 @@ export default function Index() {
               <FadeIn key={i} delay={i * 100}>
                 <div className={`flex items-center gap-6 mb-10 ${item.side === "right" ? "flex-row-reverse" : ""}`}>
                   <div className={`flex-1 ${item.side === "right" ? "text-left" : "text-right"}`}>
-                    <p className="font-[Montserrat] text-xs uppercase tracking-widest mb-1" style={{ color: "#f5e64299" }}>{item.time}</p>
-                    <p className="font-[Playfair_Display] text-lg text-white italic">{item.title}</p>
-                    <p className="font-[Montserrat] text-xs text-white/50 mt-0.5">{item.desc}</p>
+                    <p className="font-[Montserrat] text-sm uppercase tracking-widest mb-1" style={{ color: "#f5e64299" }}>{item.time}</p>
+                    <p className="font-[Playfair_Display] text-2xl text-white italic">{item.title}</p>
+                    <p className="font-[Montserrat] text-sm text-white/60 mt-1">{item.desc}</p>
                   </div>
                   <div className="relative z-10 w-12 h-12 rounded-full border-4 flex items-center justify-center shadow-lg flex-shrink-0 text-xl" style={{ background: "#f5e642", borderColor: BLUE }}>
                     {item.emoji}
