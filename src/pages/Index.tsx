@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import Icon from "@/components/ui/icon";
 
-const LEMON_TOP = "https://cdn.poehali.dev/projects/da9c55e1-2bcf-416a-90f7-995b1931dbfb/bucket/4e2edf7a-f16d-4114-b989-208e980bdd3a.jpeg";
+const LEMON_TOP = "https://cdn.poehali.dev/files/6772a591-0b0a-4e3d-b5b9-b4d5ded44457.png";
+const PHOTO_LEFT = "https://cdn.poehali.dev/projects/da9c55e1-2bcf-416a-90f7-995b1931dbfb/bucket/392a8f03-2221-4324-96af-3746df3e5a78.png";
+const PHOTO_RIGHT = "https://cdn.poehali.dev/projects/da9c55e1-2bcf-416a-90f7-995b1931dbfb/bucket/b39bae2a-57f4-4aba-bd6b-c418fd75b86a.png";
 const MAIOLICA_IMAGE = "https://cdn.poehali.dev/projects/da9c55e1-2bcf-416a-90f7-995b1931dbfb/bucket/77931437-20e0-4a53-a5db-0b5eb8ad2f81.jpeg";
 
 function useReveal() {
@@ -162,68 +164,80 @@ export default function Index() {
   return (
     <div className="bg-[#fdfaf0] font-[Montserrat] overflow-x-hidden">
 
-      {/* ===== HERO — точно по шаблону карточки с меню ===== */}
+      {/* ===== HERO ===== */}
       <section
         className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden py-16 px-4"
         style={{
           background: 'repeating-linear-gradient(90deg, #fffde7 0px, #fffde7 40px, #fdf8c8 40px, #fdf8c8 80px)',
         }}
       >
+        {/* Фото слева */}
+        <div className="absolute left-0 bottom-0 w-36 md:w-52 lg:w-64 pointer-events-none select-none z-10">
+          <img
+            src={PHOTO_LEFT}
+            alt=""
+            className="w-full h-auto object-contain object-bottom"
+            style={{ maxHeight: '70vh' }}
+          />
+        </div>
+
+        {/* Фото справа */}
+        <div className="absolute right-0 bottom-0 w-36 md:w-52 lg:w-64 pointer-events-none select-none z-10">
+          <img
+            src={PHOTO_RIGHT}
+            alt=""
+            className="w-full h-auto object-contain object-bottom"
+            style={{ maxHeight: '70vh', transform: 'scaleX(-1)' }}
+          />
+        </div>
+
         {/* Карточка по центру */}
-        <div className="relative w-full max-w-sm md:max-w-md mx-auto flex flex-col items-center">
+        <div className="relative z-20 w-full max-w-xs md:max-w-sm mx-auto flex flex-col items-center">
 
           {/* Лимон сверху — выступает над овалом */}
-          <div className="relative z-20 -mb-6 w-56 md:w-72 pointer-events-none select-none">
+          <div className="relative z-30 -mb-8 w-44 md:w-56 pointer-events-none select-none drop-shadow-lg">
             <img
               src={LEMON_TOP}
               alt="Лимоны"
-              className="w-full h-56 md:h-72 object-cover object-top"
-              style={{ borderRadius: '0 0 0 0' }}
+              className="w-full h-auto object-contain"
             />
           </div>
 
           {/* Овал с двойной синей обводкой */}
           <div
-            className="relative z-10 w-full bg-white flex flex-col items-center justify-center text-center px-8 pt-14 pb-12"
+            className="relative z-20 w-full bg-white flex flex-col items-center justify-center text-center px-8 pt-16 pb-12"
             style={{
               borderRadius: '50% / 8%',
               border: '2.5px solid #1a3a6b',
-              boxShadow: 'inset 0 0 0 6px white, inset 0 0 0 8px #1a3a6b',
-              minHeight: '420px',
+              boxShadow: 'inset 0 0 0 6px white, inset 0 0 0 8.5px #1a3a6b',
+              minHeight: '400px',
             }}
           >
-            {/* Маленькая надпись сверху */}
-            <p className="font-[Montserrat] text-[10px] uppercase tracking-[0.35em] text-[#1a3a6b]/50 mb-4">
+            <p className="font-[Montserrat] text-[10px] uppercase tracking-[0.35em] text-[#1a3a6b]/50 mb-5">
               Вы приглашены
             </p>
 
-            {/* Имена — большие, синие */}
-            <h1 className="font-[Playfair_Display] italic text-[#1a3a6b] leading-tight mb-1" style={{ fontSize: 'clamp(2rem, 8vw, 3rem)' }}>
+            <h1 className="font-[Playfair_Display] italic text-[#1a3a6b] leading-tight mb-1" style={{ fontSize: 'clamp(2rem, 7vw, 2.8rem)' }}>
               Эдуард
             </h1>
-            <p className="font-[Playfair_Display] italic text-[#1a3a6b]/50 text-2xl mb-1">&amp;</p>
-            <h1 className="font-[Playfair_Display] italic text-[#1a3a6b] leading-tight mb-6" style={{ fontSize: 'clamp(2rem, 8vw, 3rem)' }}>
+            <p className="font-[Playfair_Display] italic text-[#1a3a6b]/40 text-2xl mb-1">&amp;</p>
+            <h1 className="font-[Playfair_Display] italic text-[#1a3a6b] leading-tight mb-6" style={{ fontSize: 'clamp(2rem, 7vw, 2.8rem)' }}>
               Полина
             </h1>
 
-            {/* Разделитель */}
-            <div className="flex items-center gap-3 mb-5">
+            <div className="flex items-center gap-3 mb-4">
               <div className="h-px w-10 bg-[#1a3a6b]/20" />
               <span className="text-[#c8960a] text-base">✦</span>
               <div className="h-px w-10 bg-[#1a3a6b]/20" />
             </div>
 
-            {/* Дата — жёлтая/золотая */}
-            <p className="font-[Montserrat] font-bold tracking-widest text-[#c8960a] mb-2" style={{ fontSize: 'clamp(1.1rem, 4vw, 1.4rem)' }}>
+            <p className="font-[Montserrat] font-bold tracking-widest text-[#c8960a] mb-2" style={{ fontSize: 'clamp(1rem, 4vw, 1.3rem)' }}>
               26 мая 2026 года
             </p>
-
-            {/* Время */}
-            <p className="font-[Montserrat] text-xs uppercase tracking-widest text-[#1a3a6b]/50 mb-6">
+            <p className="font-[Montserrat] text-[10px] uppercase tracking-widest text-[#1a3a6b]/50 mb-7">
               Начало в 15:30
             </p>
 
-            {/* Кнопка */}
             <a
               href="#details"
               className="inline-flex items-center gap-2 border-2 border-[#1a3a6b] text-[#1a3a6b] font-[Montserrat] text-[10px] uppercase tracking-widest px-7 py-2.5 rounded-full hover:bg-[#1a3a6b] hover:text-white transition-all duration-300"
@@ -233,8 +247,7 @@ export default function Index() {
           </div>
         </div>
 
-        {/* Стрелка вниз */}
-        <div className="mt-10 flex flex-col items-center gap-1">
+        <div className="relative z-20 mt-10 flex flex-col items-center">
           <div className="w-0.5 h-10 bg-[#1a3a6b]/20 animate-pulse" />
         </div>
       </section>
