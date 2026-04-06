@@ -1,10 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import Icon from "@/components/ui/icon";
 
-const INVITE_IMAGE = "https://cdn.poehali.dev/projects/da9c55e1-2bcf-416a-90f7-995b1931dbfb/bucket/ff6bbbcb-6b67-490d-b2e0-acd316050855.jpeg";
+const LEMON_TOP = "https://cdn.poehali.dev/projects/da9c55e1-2bcf-416a-90f7-995b1931dbfb/bucket/4e2edf7a-f16d-4114-b989-208e980bdd3a.jpeg";
 const MAIOLICA_IMAGE = "https://cdn.poehali.dev/projects/da9c55e1-2bcf-416a-90f7-995b1931dbfb/bucket/77931437-20e0-4a53-a5db-0b5eb8ad2f81.jpeg";
-const LEMON_BIRDS = "https://cdn.poehali.dev/projects/da9c55e1-2bcf-416a-90f7-995b1931dbfb/bucket/2cc595c9-b0d6-4498-a4ed-078cb7deebfe.jpeg";
-const MENU_IMAGE = "https://cdn.poehali.dev/projects/da9c55e1-2bcf-416a-90f7-995b1931dbfb/bucket/942be219-e2e5-4c32-a178-6bdb7b0d20d9.jpeg";
 
 function useReveal() {
   const ref = useRef<HTMLDivElement>(null);
@@ -36,7 +34,7 @@ function FadeIn({ children, delay = 0, className = "" }: { children: React.React
 }
 
 function Countdown() {
-  const target = new Date("2026-05-26T14:00:00");
+  const target = new Date("2026-05-26T15:30:00");
   const [time, setTime] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
@@ -164,80 +162,91 @@ export default function Index() {
   return (
     <div className="bg-[#fdfaf0] font-[Montserrat] overflow-x-hidden">
 
-      {/* ===== HERO — La Dolce Vita ===== */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
-        {/* Maiolica background */}
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-15"
-          style={{ backgroundImage: `url(${MAIOLICA_IMAGE})` }}
-        />
-        {/* Cream overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#fdfaf0]/60 via-transparent to-[#fdfaf0]" />
+      {/* ===== HERO — точно по шаблону карточки с меню ===== */}
+      <section
+        className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden py-16 px-4"
+        style={{
+          background: 'repeating-linear-gradient(90deg, #fffde7 0px, #fffde7 40px, #fdf8c8 40px, #fdf8c8 80px)',
+        }}
+      >
+        {/* Карточка по центру */}
+        <div className="relative w-full max-w-sm md:max-w-md mx-auto flex flex-col items-center">
 
-        {/* Lemon branches top-left */}
-        <div className="absolute top-0 left-0 w-48 md:w-72 opacity-90 pointer-events-none select-none">
-          <img src={LEMON_BIRDS} alt="" className="w-full h-auto object-contain" style={{ transform: 'scaleX(-1)', maxHeight: '50vh', objectPosition: 'top' }} />
-        </div>
+          {/* Лимон сверху — выступает над овалом */}
+          <div className="relative z-20 -mb-6 w-56 md:w-72 pointer-events-none select-none">
+            <img
+              src={LEMON_TOP}
+              alt="Лимоны"
+              className="w-full h-56 md:h-72 object-cover object-top"
+              style={{ borderRadius: '0 0 0 0' }}
+            />
+          </div>
 
-        {/* Content */}
-        <div className="relative z-10 text-center px-6 py-24">
-          {/* Invite card style */}
-          <div className="inline-block relative">
-            {/* Blue decorative hearts */}
-            <p className="font-[Montserrat] text-[#1a3a6b]/60 text-xs uppercase tracking-[0.5em] mb-8">
-              Join us for a Dinner Party
+          {/* Овал с двойной синей обводкой */}
+          <div
+            className="relative z-10 w-full bg-white flex flex-col items-center justify-center text-center px-8 pt-14 pb-12"
+            style={{
+              borderRadius: '50% / 8%',
+              border: '2.5px solid #1a3a6b',
+              boxShadow: 'inset 0 0 0 6px white, inset 0 0 0 8px #1a3a6b',
+              minHeight: '420px',
+            }}
+          >
+            {/* Маленькая надпись сверху */}
+            <p className="font-[Montserrat] text-[10px] uppercase tracking-[0.35em] text-[#1a3a6b]/50 mb-4">
+              Вы приглашены
             </p>
 
-            {/* Italic script title */}
-            <div className="font-[Playfair_Display] italic text-[#1a3a6b] leading-none mb-2" style={{ fontSize: 'clamp(3.5rem, 12vw, 8rem)', fontWeight: 400 }}>
-              La Dolce
-            </div>
-            <div className="font-[Playfair_Display] italic text-[#1a3a6b] leading-none mb-6" style={{ fontSize: 'clamp(3.5rem, 12vw, 8rem)', fontWeight: 400 }}>
-              Vita
+            {/* Имена — большие, синие */}
+            <h1 className="font-[Playfair_Display] italic text-[#1a3a6b] leading-tight mb-1" style={{ fontSize: 'clamp(2rem, 8vw, 3rem)' }}>
+              Эдуард
+            </h1>
+            <p className="font-[Playfair_Display] italic text-[#1a3a6b]/50 text-2xl mb-1">&amp;</p>
+            <h1 className="font-[Playfair_Display] italic text-[#1a3a6b] leading-tight mb-6" style={{ fontSize: 'clamp(2rem, 8vw, 3rem)' }}>
+              Полина
+            </h1>
+
+            {/* Разделитель */}
+            <div className="flex items-center gap-3 mb-5">
+              <div className="h-px w-10 bg-[#1a3a6b]/20" />
+              <span className="text-[#c8960a] text-base">✦</span>
+              <div className="h-px w-10 bg-[#1a3a6b]/20" />
             </div>
 
-            {/* Date orange */}
-            <p className="font-[Montserrat] text-[#d4691e] font-bold text-2xl md:text-3xl tracking-widest mb-6">
-              06.26.2025
+            {/* Дата — жёлтая/золотая */}
+            <p className="font-[Montserrat] font-bold tracking-widest text-[#c8960a] mb-2" style={{ fontSize: 'clamp(1.1rem, 4vw, 1.4rem)' }}>
+              26 мая 2026 года
             </p>
 
-            {/* Tagline italic blue */}
-            <p className="font-[Playfair_Display] italic text-[#1a3a6b] text-xl md:text-2xl mb-2">
-              Let's sip into summer
+            {/* Время */}
+            <p className="font-[Montserrat] text-xs uppercase tracking-widest text-[#1a3a6b]/50 mb-6">
+              Начало в 15:30
             </p>
-            <p className="text-[#1a3a6b] text-xl mb-8">♡</p>
 
-            {/* Names */}
-            <div className="flex items-center justify-center gap-4 mb-8">
-              <div className="h-px w-12 bg-[#1a3a6b]/30" />
-              <span className="font-[Playfair_Display] text-[#1a3a6b] text-xl italic">Эдуард & Полина</span>
-              <div className="h-px w-12 bg-[#1a3a6b]/30" />
-            </div>
-
+            {/* Кнопка */}
             <a
-              href="#rsvp"
-              className="inline-flex items-center gap-2 bg-[#1a3a6b] text-white font-[Montserrat] text-xs uppercase tracking-widest px-10 py-4 rounded-full hover:bg-[#d4691e] transition-all duration-300 shadow-lg"
+              href="#details"
+              className="inline-flex items-center gap-2 border-2 border-[#1a3a6b] text-[#1a3a6b] font-[Montserrat] text-[10px] uppercase tracking-widest px-7 py-2.5 rounded-full hover:bg-[#1a3a6b] hover:text-white transition-all duration-300"
             >
-              Подтвердить присутствие
+              Подробнее
             </a>
           </div>
         </div>
 
-        {/* Lemon branches bottom-right */}
-        <div className="absolute bottom-0 right-0 w-40 md:w-56 opacity-80 pointer-events-none select-none">
-          <img src={LEMON_BIRDS} alt="" className="w-full h-auto" style={{ maxHeight: '30vh', objectFit: 'contain', objectPosition: 'bottom right' }} />
-        </div>
-
-        <div className="absolute bottom-8 left-0 right-0 flex justify-center">
-          <div className="w-0.5 h-12 bg-[#1a3a6b]/20 animate-pulse" />
+        {/* Стрелка вниз */}
+        <div className="mt-10 flex flex-col items-center gap-1">
+          <div className="w-0.5 h-10 bg-[#1a3a6b]/20 animate-pulse" />
         </div>
       </section>
 
       {/* ===== COUNTDOWN ===== */}
-      <section className="py-16 px-6">
+      <section
+        className="py-16 px-6"
+        style={{ background: 'repeating-linear-gradient(90deg, #fffde7 0px, #fffde7 40px, #fdf8c8 40px, #fdf8c8 80px)' }}
+      >
         <div className="max-w-2xl mx-auto text-center">
           <FadeIn>
-            <p className="font-[Montserrat] text-xs uppercase tracking-[0.4em] text-[#d4691e] mb-3">До свадьбы</p>
+            <p className="font-[Montserrat] text-xs uppercase tracking-[0.4em] text-[#c8960a] mb-6">До нашей свадьбы осталось</p>
             <Countdown />
           </FadeIn>
         </div>
@@ -247,60 +256,11 @@ export default function Index() {
       <div className="h-3 w-full" style={{ background: 'repeating-linear-gradient(90deg, #1a3a6b 0px, #1a3a6b 12px, #f5e642 12px, #f5e642 24px, #fff 24px, #fff 36px)' }} />
 
       {/* ===== DATE & VENUE ===== */}
-      <section className="relative py-24 px-6 overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-8"
-          style={{ backgroundImage: `url(${MAIOLICA_IMAGE})` }}
-        />
-        <div className="absolute inset-0 bg-[#fdfaf0]/90" />
-
-        <div className="relative max-w-3xl mx-auto">
+      <section id="details" className="py-24 px-6 bg-white">
+        <div className="max-w-3xl mx-auto">
           <FadeIn className="text-center mb-16">
-            <p className="font-[Montserrat] text-xs uppercase tracking-[0.5em] text-[#d4691e] mb-3">— когда и где —</p>
-            <h2 className="font-[Playfair_Display] italic text-5xl md:text-6xl text-[#1a3a6b] mb-4">Детали вечера</h2>
-            <div className="flex items-center justify-center gap-3">
-              <div className="h-px w-16 bg-[#1a3a6b]/20" />
-              <span className="text-[#f5e642] text-2xl">✦</span>
-              <div className="h-px w-16 bg-[#1a3a6b]/20" />
-            </div>
-          </FadeIn>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              { emoji: "📅", label: "Дата", val: "26 мая 2026", sub: "Вторник" },
-              { emoji: "🕑", label: "Начало", val: "14:00", sub: "Сбор гостей с 13:30" },
-              { emoji: "📍", label: "Место", val: "Название зала", sub: "Город, улица" },
-            ].map((item, i) => (
-              <FadeIn key={item.label} delay={i * 150}>
-                <div className="bg-white border-2 border-[#1a3a6b]/10 rounded-3xl p-8 text-center shadow-sm hover:shadow-md transition-shadow">
-                  <div className="text-4xl mb-4">{item.emoji}</div>
-                  <p className="font-[Montserrat] text-xs uppercase tracking-widest text-[#d4691e] mb-2">{item.label}</p>
-                  <p className="font-[Playfair_Display] text-xl text-[#1a3a6b] font-medium">{item.val}</p>
-                  <p className="font-[Montserrat] text-xs text-[#1a3a6b]/50 mt-1">{item.sub}</p>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
-
-          <FadeIn delay={300} className="mt-8 text-center">
-            <button className="inline-flex items-center gap-2 border-2 border-[#1a3a6b] text-[#1a3a6b] font-[Montserrat] text-xs uppercase tracking-widest px-8 py-3 rounded-full hover:bg-[#1a3a6b] hover:text-white transition-all duration-300">
-              <Icon name="Map" size={14} />
-              Открыть на карте
-            </button>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* ===== MAIOLICA DIVIDER ===== */}
-      <div className="h-3 w-full" style={{ background: 'repeating-linear-gradient(90deg, #fff 0px, #fff 12px, #1a3a6b 12px, #1a3a6b 24px, #f5e642 24px, #f5e642 36px)' }} />
-
-      {/* ===== MENU — Italian style ===== */}
-      <section className="relative py-24 px-6 overflow-hidden" style={{ background: 'repeating-linear-gradient(0deg, #fdfaf0 0px, #fdfaf0 40px, #fffde7 40px, #fffde7 80px)' }}>
-        <div className="max-w-2xl mx-auto">
-          <FadeIn className="text-center mb-12">
-            <p className="font-[Montserrat] text-xs uppercase tracking-[0.5em] text-[#d4691e] mb-3">— кулинария —</p>
-            <div className="font-[Playfair_Display] italic text-[#1a3a6b] text-2xl mb-1">Unser</div>
-            <h2 className="font-[Montserrat] text-5xl md:text-6xl font-bold text-[#c8960a] tracking-widest mb-6">MENÜ</h2>
+            <p className="font-[Montserrat] text-xs uppercase tracking-[0.5em] text-[#c8960a] mb-3">— когда и где —</p>
+            <h2 className="font-[Playfair_Display] italic text-5xl text-[#1a3a6b] mb-4">День торжества</h2>
             <div className="flex items-center justify-center gap-3">
               <div className="h-px w-16 bg-[#1a3a6b]/20" />
               <span className="text-[#c8960a] text-xl">✦</span>
@@ -308,42 +268,69 @@ export default function Index() {
             </div>
           </FadeIn>
 
-          {/* Menu card with oval border */}
-          <FadeIn delay={200}>
-            <div className="relative bg-white/90 backdrop-blur rounded-[4rem] border-4 border-[#1a3a6b] p-10 md:p-14 shadow-xl">
-              {/* Lemon decor top */}
-              <div className="absolute -top-10 left-1/2 -translate-x-1/2 text-5xl">🍋</div>
+          {/* Дата и время */}
+          <FadeIn delay={100}>
+            <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-12">
+              <div className="bg-[#fffde7] border-2 border-[#1a3a6b]/10 rounded-3xl p-7 text-center flex-1 max-w-xs">
+                <div className="text-4xl mb-3">📅</div>
+                <p className="font-[Montserrat] text-[10px] uppercase tracking-widest text-[#c8960a] mb-2">Дата</p>
+                <p className="font-[Playfair_Display] text-xl text-[#1a3a6b] font-medium">26 мая 2026</p>
+                <p className="font-[Montserrat] text-xs text-[#1a3a6b]/50 mt-1">Вторник</p>
+              </div>
+              <div className="bg-[#fffde7] border-2 border-[#1a3a6b]/10 rounded-3xl p-7 text-center flex-1 max-w-xs">
+                <div className="text-4xl mb-3">🕒</div>
+                <p className="font-[Montserrat] text-[10px] uppercase tracking-widest text-[#c8960a] mb-2">Начало</p>
+                <p className="font-[Playfair_Display] text-xl text-[#1a3a6b] font-medium">15:30</p>
+                <p className="font-[Montserrat] text-xs text-[#1a3a6b]/50 mt-1">Сбор гостей с 15:00</p>
+              </div>
+            </div>
+          </FadeIn>
 
-              {[
-                {
-                  course: "VORSPEISE",
-                  dish: "CARPACCIO VOM RINDERFILET",
-                  desc: "Rinderfilet, garniert mit Rucola, gehobeltem Parmesan und einem Hauch von Trüffelöl.",
-                },
-                {
-                  course: "HAUPTSPEISE",
-                  dish: "GEBRATENE ENTENBRUST AUF PORTWEINJUS",
-                  desc: "Entenbrust, serviert auf einem Bett von saisonalem Gemüse, begleitet von einem reichhaltigen Portweinjus.",
-                },
-                {
-                  course: "DESSERT",
-                  dish: "SCHOKOLADENMOUSSE MIT HIMBEERCOULIS",
-                  desc: "Schokoladenmousse, garniert mit frischen Himbeeren und einem süß-säuerlichen Himbeercoulis.",
-                },
-              ].map((item, i) => (
-                <div key={i} className={`text-center ${i < 2 ? "mb-10 pb-10 border-b border-[#1a3a6b]/10" : ""}`}>
-                  <p className="font-[Montserrat] text-xs uppercase tracking-[0.4em] text-[#c8960a] mb-2">{item.course}</p>
-                  <p className="font-[Montserrat] text-sm font-semibold text-[#1a3a6b] mb-2 tracking-wide">{item.dish}</p>
-                  <p className="font-[Playfair_Display] italic text-[#1a3a6b]/60 text-sm leading-relaxed">{item.desc}</p>
+          {/* Место регистрации */}
+          <FadeIn delay={200}>
+            <div className="bg-[#fffde7] border-2 border-[#1a3a6b]/10 rounded-3xl p-8 mb-6">
+              <div className="flex items-start gap-5">
+                <div className="text-3xl mt-1 flex-shrink-0">💍</div>
+                <div>
+                  <p className="font-[Montserrat] text-[10px] uppercase tracking-widest text-[#c8960a] mb-2">Регистрация</p>
+                  <p className="font-[Playfair_Display] italic text-xl text-[#1a3a6b] mb-1">Центральный отдел по г. Иркутску</p>
+                  <p className="font-[Montserrat] text-sm text-[#1a3a6b]/70 mb-1">Служба ЗАГС Иркутской области</p>
+                  <p className="font-[Montserrat] text-sm text-[#1a3a6b]/50">ул. Декабрьских событий, 106</p>
                 </div>
-              ))}
+              </div>
+            </div>
+          </FadeIn>
+
+          {/* Место празднования — с кнопкой карты */}
+          <FadeIn delay={300}>
+            <div className="bg-[#1a3a6b] rounded-3xl p-8">
+              <div className="flex flex-col md:flex-row items-start md:items-center gap-5">
+                <div className="flex items-start gap-5 flex-1">
+                  <div className="text-3xl mt-1 flex-shrink-0">🥂</div>
+                  <div>
+                    <p className="font-[Montserrat] text-[10px] uppercase tracking-widest text-[#f5e642]/70 mb-2">Место празднования</p>
+                    <p className="font-[Playfair_Display] italic text-xl text-white mb-1">Банкет и торжество</p>
+                    <p className="font-[Montserrat] text-sm text-white/70 mb-1">рп. Большая Речка</p>
+                    <p className="font-[Montserrat] text-sm text-white/50">Южный переулок, д. 7</p>
+                  </div>
+                </div>
+                <a
+                  href="https://yandex.ru/maps/?text=рп.+Большая+Речка+Южный+переулок+7"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-shrink-0 inline-flex items-center gap-2 bg-[#f5e642] text-[#1a3a6b] font-[Montserrat] text-xs font-semibold uppercase tracking-widest px-6 py-3 rounded-full hover:bg-white transition-colors shadow-lg"
+                >
+                  <Icon name="Map" size={14} />
+                  Открыть карту
+                </a>
+              </div>
             </div>
           </FadeIn>
         </div>
       </section>
 
       {/* ===== MAIOLICA DIVIDER ===== */}
-      <div className="h-3 w-full" style={{ background: 'repeating-linear-gradient(90deg, #1a3a6b 0px, #1a3a6b 12px, #f5e642 12px, #f5e642 24px, #fff 24px, #fff 36px)' }} />
+      <div className="h-3 w-full" style={{ background: 'repeating-linear-gradient(90deg, #fff 0px, #fff 12px, #1a3a6b 12px, #1a3a6b 24px, #f5e642 24px, #f5e642 36px)' }} />
 
       {/* ===== TIMELINE ===== */}
       <section className="py-24 px-6 bg-[#1a3a6b]">
@@ -361,12 +348,12 @@ export default function Index() {
           <div className="relative">
             <div className="absolute left-1/2 top-0 bottom-0 w-px bg-white/10 -translate-x-1/2" />
             {[
-              { time: "13:30", title: "Сбор гостей", desc: "Welcome-коктейль и живая музыка", emoji: "🥂", side: "left" },
-              { time: "14:00", title: "Церемония", desc: "Торжественная регистрация брака", emoji: "💍", side: "right" },
-              { time: "15:00", title: "Фуршет", desc: "Шампанское, закуски, первые тосты", emoji: "🍾", side: "left" },
-              { time: "16:30", title: "Банкет", desc: "Праздничный ужин и первый танец", emoji: "🎵", side: "right" },
-              { time: "19:00", title: "Торт", desc: "Разрезание свадебного торта", emoji: "🎂", side: "left" },
-              { time: "19:30", title: "Танцы", desc: "До позднего вечера", emoji: "🌙", side: "right" },
+              { time: "15:00", title: "Сбор гостей", desc: "Welcome-коктейль", emoji: "🥂", side: "left" },
+              { time: "15:30", title: "Регистрация", desc: "ЗАГС, ул. Декабрьских событий, 106", emoji: "💍", side: "right" },
+              { time: "17:00", title: "Выезд на банкет", desc: "рп. Большая Речка, Южный пер., 7", emoji: "🚗", side: "left" },
+              { time: "18:00", title: "Банкет", desc: "Праздничный ужин, тосты и первый танец", emoji: "🎵", side: "right" },
+              { time: "20:00", title: "Торт", desc: "Разрезание свадебного торта", emoji: "🎂", side: "left" },
+              { time: "20:30", title: "Танцы", desc: "До позднего вечера", emoji: "🌙", side: "right" },
             ].map((item, i) => (
               <FadeIn key={i} delay={i * 100}>
                 <div className={`flex items-center gap-6 mb-10 ${item.side === "right" ? "flex-row-reverse" : ""}`}>
@@ -387,33 +374,32 @@ export default function Index() {
       </section>
 
       {/* ===== MAIOLICA DIVIDER ===== */}
-      <div className="h-3 w-full" style={{ background: 'repeating-linear-gradient(90deg, #fff 0px, #fff 12px, #1a3a6b 12px, #1a3a6b 24px, #f5e642 24px, #f5e642 36px)' }} />
+      <div className="h-3 w-full" style={{ background: 'repeating-linear-gradient(90deg, #1a3a6b 0px, #1a3a6b 12px, #f5e642 12px, #f5e642 24px, #fff 24px, #fff 36px)' }} />
 
-      {/* ===== DETAILS / DRESS CODE ===== */}
-      <section className="py-24 px-6">
+      {/* ===== DETAILS ===== */}
+      <section className="py-24 px-6 bg-white">
         <div className="max-w-3xl mx-auto">
           <FadeIn className="text-center mb-16">
-            <p className="font-[Montserrat] text-xs uppercase tracking-[0.5em] text-[#d4691e] mb-3">— важно знать —</p>
-            <h2 className="font-[Playfair_Display] italic text-5xl md:text-6xl text-[#1a3a6b] mb-4">Детали</h2>
+            <p className="font-[Montserrat] text-xs uppercase tracking-[0.5em] text-[#c8960a] mb-3">— важно знать —</p>
+            <h2 className="font-[Playfair_Display] italic text-5xl text-[#1a3a6b] mb-4">Детали</h2>
             <div className="flex items-center justify-center gap-3">
               <div className="h-px w-16 bg-[#1a3a6b]/20" />
-              <span className="text-[#f5e642] text-xl">✦</span>
+              <span className="text-[#c8960a] text-xl">✦</span>
               <div className="h-px w-16 bg-[#1a3a6b]/20" />
             </div>
           </FadeIn>
-
           <div className="grid md:grid-cols-2 gap-5">
             {[
-              { emoji: "👔", title: "Дресс-код", desc: "Праздничный наряд. Палитра: белый, синий, жёлтый. Пожалуйста, не надевайте белое — это цвет невесты." },
-              { emoji: "👶", title: "Дети", desc: "Мы рады детям! Для малышей оборудована специальная зона с развлечениями." },
-              { emoji: "📷", title: "Фото", desc: "Просим не снимать во время церемонии. Фотограф запечатлеет все важные моменты." },
+              { emoji: "👔", title: "Дресс-код", desc: "Праздничный наряд. Предпочтительная палитра: белый, синий, жёлтый. Белое — только для невесты." },
+              { emoji: "👶", title: "Дети", desc: "Мы рады видеть ваших детей! Для малышей будет оборудована специальная зона." },
+              { emoji: "📷", title: "Фото", desc: "Просим не снимать во время церемонии — фотограф запечатлеет все важные моменты." },
               { emoji: "🎁", title: "Подарки", desc: "Лучший подарок — ваше присутствие. Если хочется сделать сюрприз — уточните у организаторов." },
             ].map((item, i) => (
               <FadeIn key={item.title} delay={i * 100}>
-                <div className="bg-white border-2 border-[#1a3a6b]/10 rounded-3xl p-7 flex gap-5 items-start hover:border-[#1a3a6b]/30 transition-colors">
+                <div className="bg-[#fffde7] border-2 border-[#1a3a6b]/10 rounded-3xl p-7 flex gap-5 items-start hover:border-[#1a3a6b]/30 transition-colors">
                   <div className="text-3xl flex-shrink-0 mt-1">{item.emoji}</div>
                   <div>
-                    <p className="font-[Montserrat] text-xs uppercase tracking-widest text-[#d4691e] mb-2">{item.title}</p>
+                    <p className="font-[Montserrat] text-[10px] uppercase tracking-widest text-[#c8960a] mb-2">{item.title}</p>
                     <p className="font-[Montserrat] text-sm text-[#1a3a6b]/70 leading-relaxed">{item.desc}</p>
                   </div>
                 </div>
@@ -423,27 +409,21 @@ export default function Index() {
         </div>
       </section>
 
+      {/* ===== MAIOLICA DIVIDER ===== */}
+      <div className="h-3 w-full" style={{ background: 'repeating-linear-gradient(90deg, #fff 0px, #fff 12px, #1a3a6b 12px, #1a3a6b 24px, #f5e642 24px, #f5e642 36px)' }} />
+
       {/* ===== RSVP ===== */}
-      <section id="rsvp" className="relative py-24 px-6 overflow-hidden">
-        {/* Maiolica frame image as bg */}
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-10"
-          style={{ backgroundImage: `url(${MAIOLICA_IMAGE})` }}
-        />
-        <div className="absolute inset-0 bg-[#fdf8d0]/90" />
-
-        <div className="relative max-w-2xl mx-auto">
+      <section
+        id="rsvp"
+        className="py-24 px-6"
+        style={{ background: 'repeating-linear-gradient(90deg, #fffde7 0px, #fffde7 40px, #fdf8c8 40px, #fdf8c8 80px)' }}
+      >
+        <div className="max-w-2xl mx-auto">
           <FadeIn className="text-center mb-12">
-            <p className="font-[Montserrat] text-xs uppercase tracking-[0.5em] text-[#d4691e] mb-3">— ваш ответ —</p>
-            <h2 className="font-[Playfair_Display] italic text-5xl md:text-6xl text-[#1a3a6b] mb-4">RSVP</h2>
+            <p className="font-[Montserrat] text-xs uppercase tracking-[0.5em] text-[#c8960a] mb-3">— ваш ответ —</p>
+            <h2 className="font-[Playfair_Display] italic text-5xl text-[#1a3a6b] mb-4">RSVP</h2>
             <p className="font-[Montserrat] text-sm text-[#1a3a6b]/60">Пожалуйста, подтвердите присутствие до 1 мая 2026</p>
-            <div className="flex items-center justify-center gap-3 mt-4">
-              <div className="h-px w-16 bg-[#1a3a6b]/20" />
-              <span className="text-[#f5e642] text-xl">🍋</span>
-              <div className="h-px w-16 bg-[#1a3a6b]/20" />
-            </div>
           </FadeIn>
-
           <FadeIn delay={200}>
             <div className="bg-white rounded-3xl shadow-xl p-8 md:p-12 border border-[#1a3a6b]/10">
               <GuestForm />
@@ -453,20 +433,13 @@ export default function Index() {
       </section>
 
       {/* ===== FOOTER ===== */}
-      <footer className="bg-[#1a3a6b] py-16 px-6 text-center relative overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-5"
-          style={{ backgroundImage: `url(${MAIOLICA_IMAGE})` }}
-        />
-        <div className="relative">
-          <p className="font-[Playfair_Display] italic text-[#f5e642] text-4xl md:text-5xl mb-2">La Dolce Vita</p>
-          <p className="font-[Montserrat] text-white/50 text-xs uppercase tracking-widest mb-6">26 мая 2026 · Эдуард & Полина</p>
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="h-px w-10 bg-white/20" />
-            <span className="text-[#f5e642] text-lg">🍋</span>
-            <div className="h-px w-10 bg-white/20" />
-          </div>
-          <p className="font-[Playfair_Display] italic text-white/40 text-sm">Let's sip into summer ♡</p>
+      <footer className="bg-[#1a3a6b] py-14 px-6 text-center">
+        <p className="font-[Playfair_Display] italic text-[#f5e642] text-4xl mb-2">Эдуард & Полина</p>
+        <p className="font-[Montserrat] text-white/50 text-xs uppercase tracking-widest mb-4">26 мая 2026 · Иркутск</p>
+        <div className="flex items-center justify-center gap-3">
+          <div className="h-px w-10 bg-white/20" />
+          <span className="text-[#f5e642] text-lg">🍋</span>
+          <div className="h-px w-10 bg-white/20" />
         </div>
       </footer>
     </div>
